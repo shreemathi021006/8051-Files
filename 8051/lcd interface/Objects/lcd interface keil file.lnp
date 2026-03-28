@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\led interface hex.obj" 
+TO ".\Objects\lcd interface keil file" 
+PRINT(".\Listings\lcd interface keil file.m51")
