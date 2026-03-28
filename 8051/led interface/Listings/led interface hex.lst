@@ -1,0 +1,63 @@
+C51 COMPILER V9.60.7.0   LED_INTERFACE_HEX                                                 03/28/2026 13:05:34 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LED_INTERFACE_HEX
+OBJECT MODULE PLACED IN .\Objects\led interface hex.obj
+COMPILER INVOKED BY: C:\C51\BIN\C51.EXE led interface hex.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings
+                    -\led interface hex.lst) TABS(2) OBJECT(.\Objects\led interface hex.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          
+   3          sbit led1 = P2^0;
+   4          sbit led2 = P2^4;
+   5          sbit swi = P3^2;
+   6          void delay(void);
+   7          void urgent(void) interrupt 0{
+   8   1        int i;
+   9   1        led1 = 1;
+  10   1        led2 = 0;
+  11   1        for(i = 0; i<20 ; i++){
+  12   2        delay();
+  13   2        }
+  14   1        led1 = 0;
+  15   1        led2 = 1;
+  16   1        for(i = 0; i<20 ; i++){
+  17   2        delay();
+  18   2        }
+  19   1      }
+  20          
+  21          void main(){
+  22   1        
+  23   1        IT0 = 0;
+  24   1        IE = 0x81;
+  25   1        while (1){
+  26   2        led1 = 0;
+  27   2        led2 = 0;
+  28   2        }
+  29   1      }
+  30          
+  31          void delay(){
+  32   1        TMOD = 0x01;
+  33   1        TH0 = 0x4B;
+  34   1        TL0 = 0x26;
+  35   1        TR0 = 1;
+  36   1        while (TF0 == 0);
+  37   1        TR0 = 0;
+  38   1        TF0 = 0;
+  39   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    150    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
